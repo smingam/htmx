@@ -89,7 +89,7 @@ return (function () {
                 sock.binaryType = htmx.config.wsBinaryType;
                 return sock;
             },
-            version: "1.9.11"
+            version: "1.9.12"
         };
 
         /** @type {import("./htmx").HtmxInternalApi} */
@@ -138,12 +138,12 @@ return (function () {
 
         /**
          * @param {string} tag
-         * @param {boolean} global
+         * @param {boolean} [global]
          * @returns {RegExp}
          */
-        function makeTagRegEx(tag, global = false) {
-            return new RegExp(`<${tag}(\\s[^>]*>|>)([\\s\\S]*?)<\\/${tag}>`,
-                global ? 'gim' : 'im');
+        function makeTagRegEx(tag, global) {
+          return new RegExp('<' + tag + '(\\s[^>]*>|>)([\\s\\S]*?)<\\/' + tag + '>',
+            !!global ? 'gim' : 'im')
         }
 
         function parseInterval(str) {
@@ -1425,6 +1425,10 @@ return (function () {
                 getRawAttribute(elt,'href').indexOf("#") !== 0;
         }
 
+        function eltIsDisabled(elt) {
+            return closest(elt, htmx.config.disableSelector);
+        }
+
         function boostElement(elt, nodeData, triggerSpecs) {
             if ((elt.tagName === "A" && isLocalLink(elt) && (elt.target === "" || elt.target === "_self")) || elt.tagName === "FORM") {
                 nodeData.boosted = true;
@@ -1441,7 +1445,7 @@ return (function () {
                 }
                 triggerSpecs.forEach(function(triggerSpec) {
                     addEventListener(elt, function(elt, evt) {
-                        if (closest(elt, htmx.config.disableSelector)) {
+                        if (eltIsDisabled(elt)) {
                             cleanUpElement(elt)
                             return
                         }
@@ -1945,6 +1949,9 @@ return (function () {
 
         function shouldProcessHxOn(elt) {
             var attributes = elt.attributes
+            if (!attributes) {
+                return false
+            }
             for (var j = 0; j < attributes.length; j++) {
                 var attrName = attributes[j].name
                 if (startsWith(attrName, "hx-on:") || startsWith(attrName, "data-hx-on:") ||
@@ -1967,11 +1974,11 @@ return (function () {
                 var iter = document.evaluate('.//*[@*[ starts-with(name(), "hx-on:") or starts-with(name(), "data-hx-on:") or' +
                                                                            ' starts-with(name(), "hx-on-") or starts-with(name(), "data-hx-on-") ]]', elt)
                 while (node = iter.iterateNext()) elements.push(node)
-            } else {
+            } else if (typeof elt.getElementsByTagName === "function") {
                 var allElements = elt.getElementsByTagName("*")
                 for (var i = 0; i < allElements.length; i++) {
-                    if (shouldProcessHxOn(allElements[i])) {
-                        elements.push(allElements[i])
+                  if (shouldProcessHxOn(allElements[i])) {
+                      elements.push(allElements[i])
                     }
                 }
             }
@@ -2049,6 +2056,9 @@ return (function () {
                 return maybeEval(elt, function() {
                     if (!func) {
                         func = new Function("event", code);
+                    }
+                    if (eltIsDisabled(elt)) {
+                        return;
                     }
                     func.call(elt, e);
                 });

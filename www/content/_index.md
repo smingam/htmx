@@ -2,9 +2,92 @@
 insert_anchor_links = "left"
 +++
 
+<style type="text/css">
+.wuw {
+  display:none;
+}
+.uwu {
+  display:none;
+}
+body.lmao .dark-hero .main {
+    display:none;
+}
+body.lmao .dark-hero .wuw {
+    display:block;
+    padding-top: 24px;
+}
+body.lmao .dark-hero .uwu {
+    display:none;
+}
+body.kawaii .dark-hero .main {
+    display:none;
+}
+body.kawaii .dark-hero .wuw {
+    display:none;
+}
+body.kawaii .dark-hero .uwu {
+    display:block;
+    padding-top: 24px;
+}
+
+body.ads .ad {
+  display: block;
+  text-align: center;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+
+body.ads .ad a:hover {
+  opacity: 100%;
+}
+
+body .ad {
+  display: none;
+}
+
+body.ads .ad img {
+  max-width: 90vw;
+}
+
+</style>
+<script type="application/javascript">
+if(window.location.search=="?wuw=true" || window.location.search=="?suw=true") {
+  document.body.classList.add('lmao');
+}
+if(window.location.search=="?uwu=true") {
+  document.body.classList.add('kawaii');
+}
+if(window.location.search=="?ads=true") {
+  document.body.classList.add('ads');
+}
+</script>
+
+<div class="ad" style="margin-bottom: 30px">
+<a href="https://swag.htmx.org">
+  <img src="/img/ads_top.png"/>
+</a>
+</div>
+
 <div class="dark-hero full-width" classes="add appear">
-  <span class="logo dark">&lt;<span class="blue">/</span>&gt; <span class="no-mobile">htm<span class="blue">x</span></span></span>
-  <sub class="no-mobile"><i>high power tools for HTML</i></sub>
+  <div class="main">
+      <span class="logo dark">&lt;<span class="blue">/</span>&gt; <span class="no-mobile">htm<span class="blue">x</span></span></span>
+      <sub class="no-mobile"><i>high power tools for HTML</i></sub>
+  </div>
+  <div class="wuw">
+     <a href="https://swag.htmx.org/products/shut-up-warren-tee">
+       <img src="/img/wuw.png">
+     </a>
+  </div>
+  <div class="uwu">
+     <a href="https://swag.htmx.org/products/htmx-katakana-shirt">
+       <img src="/img/kawaii.png">
+     </a>
+  </div>
+</div>
+<div class="ad">
+<a href="https://swag.htmx.org">
+  <img src="/img/ads_bottom.png"/>
+</a>
 </div>
 
 <div style="border: 1px solid lightgrey; margin:24px;padding:12px;border-radius: 8px; background-color: whitesmoke; filter: drop-shadow(3px 3px darkgray)">
@@ -37,7 +120,7 @@ By removing these constraints, htmx completes HTML as a [hypertext](https://en.w
 <h2>quick start</h2>
 
 ```html
-  <script src="https://unpkg.com/htmx.org@1.9.11"></script>
+  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
   <!-- have a button POST a click via AJAX -->
   <button hx-post="/clicked" hx-swap="outerHTML">
     Click Me
@@ -131,8 +214,8 @@ Thank you to all our generous <a href="https://github.com/sponsors/bigskysoftwar
       <a data-github-account="sekunho" href="https://twitter.com/sekunho_/"><img src="/img/sekun-doggo.jpg" alt="Hiro The Doggo" style="border: 2px solid lightgray; border-radius:20px; width:100%;max-width:150px"></a>
 </td>
 <td>
-        <a href="https://www.dasfilter.shop/">
-          <img alt="Das Filter" src="/img/das-filter.png" style="width:100%;max-width:300px">
+        <a href="https://dasfilter.shop/pages/affiliates">
+          <img alt="Das Filter" src="/img/das-filter.svg" style="width:100%;max-width:300px">
         </a>
 </td>
 </tr>
@@ -186,6 +269,11 @@ Thank you to all our generous <a href="https://github.com/sponsors/bigskysoftwar
 <td>
         <a data-github-account="VPSServerCom" href="https://www.vpsserver.com/">
           <img alt="VPS Server Hosting in the Cloud: Cost Efficiency" src="/img/vps-server-logo.svg" style="width:100%;max-width:250px">
+        </a>
+</td>
+<td>
+        <a data-github-account="appleple" href="https://www.a-blogcms.jp/">
+          <img src="/img/ablogcms_logo.svg" style="width:100%;max-width:250px">
         </a>
 </td>
 </tr>
